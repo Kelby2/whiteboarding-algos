@@ -12,12 +12,12 @@ function checkPermutation(str1, str2) {
     if (charCount[currChar]) {
       charCount[currChar] += 1;
     } else {
-      charCount[currChar] = 0;
+      charCount[currChar] = 1;
     }
   }
 
   for (let j = 0; j < str2.length; j++) {
-    let currChar = str2[i];
+    let currChar = str2[j];
     if (charCount[currChar]) {
       charCount[currChar] -= 1;
       if (charCount[currChar] === 0) { delete charCount[currChar]; }
@@ -29,4 +29,4 @@ function checkPermutation(str1, str2) {
   return Object.keys(charCount).length === 0;
 }
 
-export { checkPermutation };
+module.exports = checkPermutation;
