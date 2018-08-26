@@ -31,4 +31,4 @@ function isUnique2(string) {
   return true;
 }
 
-export { isUnique };
+module.exports = isUnique;
