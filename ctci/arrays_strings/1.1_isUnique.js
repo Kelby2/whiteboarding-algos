@@ -32,3 +32,4 @@ function isUnique2(string) {
 }
 
 module.exports = isUnique;
+module.exports = isUnique2;
