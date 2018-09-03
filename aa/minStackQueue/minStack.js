@@ -34,6 +34,14 @@ class minStack {
     return this.values[lastIndex];
   }
 
+  isEmpty() {
+    return this.values.length === 0;
+  }
+
+  length() {
+    return this.values.length;
+  }
+
   min() {
     return this.minValues[this.minValues.length - 1];
   }
