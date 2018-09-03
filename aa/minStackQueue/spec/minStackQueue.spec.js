@@ -1,5 +1,6 @@
 const MinStack = require('../minStack');
 const MinQueue = require('../minQueue');
+const StackQueue = require('../stackQueue');
 
 describe("minStack", () => {
   let testStack = new MinStack();
@@ -71,5 +72,29 @@ describe("minQueue", () => {
     expect(testQueue.min()).toBe(2);
   });
 
+});
+
+describe("stackQueue", () => {
+  let testStackQueue = new StackQueue();
+  testStackQueue.enqueue(3);
+  testStackQueue.enqueue(1);
+  testStackQueue.enqueue(4);
+
+  test("enqueue should add the given number to the end of the queue", () => {
+    expect(testStackQueue.length()).toBe(3);
+  });
+
+  test("dequeue should remove the first number in the queue", () => {
+    testStackQueue.dequeue();
+    expect(testStackQueue.length()).toBe(2);
+    expect(testStackQueue.peek()).toBe(1);
+  });
+
+  test("getMin should return the lowest number in the queue", () => {
+    expect(testStackQueue.getMin()).toBe(1);
+    testStackQueue.dequeue();
+    testStackQueue.dequeue();
+    expect(testStackQueue.getMin()).toBe(null);
+  });
 
 });
