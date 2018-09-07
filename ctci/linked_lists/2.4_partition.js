@@ -3,3 +3,43 @@
 // EXAMPLE
 // Input: 3 -> 5 -> 8 -> 5 ->10 -> 2 -> 1 [partition = 5]
 // Output: 3 -> 1 -> 2 -> 10 -> 5 -> 5 -> 8
+
+function partition(node, x) {
+  let lesserHead;
+  let lesserTail;
+  let greaterHead = null;
+  let greaterTail;
+
+  while (node !== null) {
+    if (node.val < x) {
+      if (lesserHead) {
+        lesserTail.next = node;
+      } else {
+        lesserHead = node;
+      }
+      lesserTail = node;
+    } else {
+      if (greaterHead) {
+        greaterTail.next = node;
+      } else {
+        greaterHead = node;
+      }
+      greaterTail = node;
+    }
+
+    node = node.next;
+  }
+
+  if (!lesserHead) {
+    return greaterHead;
+  }
+
+  if (greaterHead) {
+    lesserTail.next = greaterHead;
+    greaterTail.next = null;
+  }
+
+  return lesserHead;
+}
+
+module.exports = partition;

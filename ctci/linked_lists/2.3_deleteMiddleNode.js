@@ -13,7 +13,6 @@ function deleteMiddleNode(node) {
     delete the next node accordingly
   */
   if (node.next === null) return;
-
   node.val = node.next.val;
   node.next = node.next.next;
   return;
