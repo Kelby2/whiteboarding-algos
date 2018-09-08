@@ -125,14 +125,30 @@ describe("palindrome", () => {
 });
 
 describe("intersection", () => {
-  test("", () => {
+  const nodeList1 = [3,4,6,8,4,5,2].map(num => new Node(num));
+  const nodeList2 = [3,5].map(num => new Node(num));
+  //list3 and list1 match by value but not by reference
+  const nodeList3 = [3,1,6,8,4,5,2].map(num => new Node(num));
+  linkLists(nodeList1, nodeList2, nodeList3);
+  nodeList2[1].next = nodeList1[4];
+  test("should return the node that intersects the two lists", () => {
+    expect(intersection(nodeList1[0], nodeList2[0])).toBe(nodeList1[4]);
+  });
 
+  test("should return null if the two lists do not intersect", () => {
+    expect(intersection(nodeList1[0], nodeList3[0])).toBe(false);
   });
 });
 
 describe("loopDetection", () => {
-  test("", () => {
-
+  const loopedList = [5,4,1,2,8,6,3].map(num => new Node(num));
+  const loopedList2 = [3,2,6,4,3,7,1].map(num => new Node(num));
+  linkLists(loopedList, loopedList2);
+  loopedList[loopedList.length - 1].next = loopedList[2];
+  loopedList2[loopedList.length - 1].next = loopedList2[5];
+  test("returns the node that begins the loop", () => {
+    expect(loopDetetction(loopedList[0])).toBe(loopedList[2]);
+    expect(loopDetetction(loopedList2[0])).toBe(loopedList[5]);
   });
 });
 
