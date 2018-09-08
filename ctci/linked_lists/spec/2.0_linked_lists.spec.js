@@ -81,21 +81,46 @@ describe("partition", () => {
     let partitionedList2 = partition(nodes[0], 2);
     expect(partitionedList2.remainingLinks()).toBe("[6,5,3,3,5,2,2,3,9,8]");
 
-    console.log('hi');
     let partitionedList3 = partition(nodes[0], 9);
     expect(partitionedList3.remainingLinks()).toBe("[6,5,3,3,5,2,2,3,8,9]");
   });
 });
 
 describe("sumLists", () => {
-  test("", () => {
+  const nodeList1 = [7,1,6].map(num => new Node(num));
+  const nodeList2 = [5,9,2].map(num => new Node(num));
+  const nodeList3 = [5,9,4].map(num => new Node(num));
+  const nodeList4 = [3,3].map(num => new Node(num));
+  const nodeListOneTwoSum = [2,1,9].map(num => new Node(num));
+  const nodeListOneThreeSum = [2,1,1,1].map(num => new Node(num));
+  const nodeListOneFourSum = [0,5,6].map(num => new Node(num));
+  linkLists(nodeList1, nodeList2, nodeList3, nodeList4, nodeListOneTwoSum, nodeListOneThreeSum, nodeListOneFourSum);
 
+  test("should add the two lists together", () => {
+    expect(sumLists(nodeList1, nodeList2).remainingLinks()).toBe(nodeListOneTwoSum[0].remainingLinks());
+  });
+
+  test("handles cases where you may need to add values", () => {
+    expect(sumLists(nodeList1, nodeList3).remainingLinks()).toBe(nodeListOneThreeSum[0].remainingLinks());
+  });
+
+  test("handles cases where lists are not the same length", () => {
+    expect(sumLists(nodeList1, nodeList4).remainingLinks()).toBe(nodeListOneFourSum[0].remainingLinks());
   });
 });
 
 describe("palindrome", () => {
-  test("", () => {
+  const paliList = [3,1,2,1,3].map(num => new Node(num));
+  const paliList2 = [5,7,7,5].map(num => new Node(num));
+  const nonPaliList = [2,3,3,1,2].map(num => new Node(num));
+  linkLists(paliList, paliList2, nonPaliList);
+  test("returns true if the linked list is a palindrome", () => {
+    expect(palindrome(paliList)).toBe(true);
+    expect(palindrome(paliList2)).toBe(true);
+  });
 
+  test("returns false if the linked list is not a palindrome", () => {
+    expect(palindrome(nonPaliList)).toBe(false);
   });
 });
 
@@ -110,3 +135,11 @@ describe("loopDetection", () => {
 
   });
 });
+
+function linkLists(...nodeArrays) {
+  nodeArrays.forEach(nodeArray => {
+    for (let i = 0; i < nodeArray.length - 1; i++) {
+      nodeArray[i].next = nodeArray[i + 1];
+    }
+  });
+}
