@@ -10,3 +10,11 @@
 // Input: (6 -> 1 -> 7) + (2 -> 9 -> 5).
 // That is, 617 + 295.
 // Output: 9 -> 1 -> 2. That is, 912.
+
+const Node = require('./node');
+
+function sumLists(list1, list2) {
+  
+}
+
+module.exports = sumLists;

@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "test": "jest",
+    "watch": "jest --watch"
+  },
+  "dependencies": {
+    "jest-cli": "^23.5.0"
+  }
+}
