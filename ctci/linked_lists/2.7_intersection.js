@@ -5,15 +5,9 @@ function intersection(head1, head2) {
   let listTwoLength = getListLength(head2);
   let shorterList; let longerList; let lengthDifference;
 
-  if (listOneLength < listTwoLength) {
-    shorterList = head1;
-    longerList = head2;
-    lengthDifference = listTwoLength - listOneLength;
-  } else {
-    shorterList = head2;
-    longerList = head1;
-    lengthDifference = listOneLength - listTwoLength;
-  }
+  shorterList = listOneLength < listTwoLength ? head1 : head2;
+  longerList = listOneLength < listTwoLength ? head2 : head1;
+  lengthDifference = Math.max(listOneLength, listTwoLength) - Math.min(listOneLength, listTwoLength);
 
   for (let i = 0; i < lengthDifference; i++) {
     longerList = longerList.next;
@@ -23,10 +17,8 @@ function intersection(head1, head2) {
     if (shorterList === longerList) {
       return shorterList;
     }
-    
     shorterList = shorterList.next;
     longerList = longerList.next;
-
   }
 
   return false;
