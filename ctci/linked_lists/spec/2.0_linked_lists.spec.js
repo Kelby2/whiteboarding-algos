@@ -147,8 +147,8 @@ describe("loopDetection", () => {
   loopedList[loopedList.length - 1].next = loopedList[2];
   loopedList2[loopedList.length - 1].next = loopedList2[5];
   test("returns the node that begins the loop", () => {
-    expect(loopDetetction(loopedList[0])).toBe(loopedList[2]);
-    expect(loopDetetction(loopedList2[0])).toBe(loopedList[5]);
+    expect(loopDetection(loopedList[0])).toBe(loopedList[2]);
+    expect(loopDetection(loopedList2[0])).toBe(loopedList2[5]);
   });
 });
 
