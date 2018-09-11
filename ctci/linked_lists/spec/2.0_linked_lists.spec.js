@@ -115,12 +115,12 @@ describe("palindrome", () => {
   const nonPaliList = [2,3,3,1,2].map(num => new Node(num));
   linkLists(paliList, paliList2, nonPaliList);
   test("returns true if the linked list is a palindrome", () => {
-    expect(palindrome(paliList)).toBe(true);
-    expect(palindrome(paliList2)).toBe(true);
+    expect(palindrome(paliList[0])).toBe(true);
+    expect(palindrome(paliList2[0])).toBe(true);
   });
 
   test("returns false if the linked list is not a palindrome", () => {
-    expect(palindrome(nonPaliList)).toBe(false);
+    expect(palindrome(nonPaliList[0])).toBe(false);
   });
 });
 
