@@ -6,8 +6,19 @@
 // Input: A -> B -> C -> 0 -> E -> C [the same C as earlier]
 // Output: C
 
-function loopDetection(list) {
+function loopDetection(node) {
+  let current = node;
 
+  while (current !== null) {
+    if (current.seen === true) {
+      return current;
+    }
+
+    current.seen = true;
+    current = current.next;
+  }
+
+  return false;
 }
 
 module.exports = loopDetection;
