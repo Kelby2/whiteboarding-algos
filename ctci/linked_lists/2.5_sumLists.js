@@ -13,8 +13,47 @@
 
 const Node = require('./node');
 
-function sumLists(list1, list2) {
-  
+function sumLists(node1, node2) {
+  let sum;
+  let val;
+  let prev;
+  let head;
+  let carryOver = 0;
+
+  let currentNodeOne = node1;
+  let currentNodeTwo = node2;
+
+  while (currentNodeOne || currentNodeTwo) {
+    value1 = currentNodeOne ? currentNodeOne.val : 0;
+    value2 = currentNodeTwo ? currentNodeTwo.val : 0;
+    sum = value1 + value2 + carryOver;
+    carryOver = Math.floor(sum/10);
+    value = sum % 10;
+    let newestNode = new Node(value);
+
+    if (!prev) {
+      head = newestNode;
+    } else {
+      prev.next = newestNode;
+    }
+
+    prev = newestNode;
+
+    if (currentNodeOne) {
+      currentNodeOne = currentNodeOne.next;
+    }
+
+    if (currentNodeTwo) {
+      currentNodeTwo = currentNodeTwo.next;
+    }
+  }
+
+  if (sum > 10) {
+    newestNode = new Node(carryOver);
+    prev.next = newestNode;
+  }
+
+  return head;
 }
 
 module.exports = sumLists;
