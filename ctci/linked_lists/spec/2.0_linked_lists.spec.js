@@ -97,15 +97,15 @@ describe("sumLists", () => {
   linkLists(nodeList1, nodeList2, nodeList3, nodeList4, nodeListOneTwoSum, nodeListOneThreeSum, nodeListOneFourSum);
 
   test("should add the two lists together", () => {
-    expect(sumLists(nodeList1, nodeList2).remainingLinks()).toBe(nodeListOneTwoSum[0].remainingLinks());
+    expect(sumLists(nodeList1[0], nodeList2[0]).remainingLinks()).toBe(nodeListOneTwoSum[0].remainingLinks());
   });
 
   test("handles cases where you may need to add values", () => {
-    expect(sumLists(nodeList1, nodeList3).remainingLinks()).toBe(nodeListOneThreeSum[0].remainingLinks());
+    expect(sumLists(nodeList1[0], nodeList3[0]).remainingLinks()).toBe(nodeListOneThreeSum[0].remainingLinks());
   });
 
   test("handles cases where lists are not the same length", () => {
-    expect(sumLists(nodeList1, nodeList4).remainingLinks()).toBe(nodeListOneFourSum[0].remainingLinks());
+    expect(sumLists(nodeList1[0], nodeList4[0]).remainingLinks()).toBe(nodeListOneFourSum[0].remainingLinks());
   });
 });
 
@@ -121,6 +121,14 @@ describe("palindrome", () => {
 
   test("returns false if the linked list is not a palindrome", () => {
     expect(palindrome(nonPaliList[0])).toBe(false);
+  });
+
+  test("should not mutate the original list", () => {
+    palindrome(paliList[0]);
+    palindrome(paliList2[0]);
+
+    expect(paliList[0].remainingLinks()).toBe("[3,1,2,1,3]");
+    expect(paliList2[0].remainingLinks()).toBe("[5,7,7,5]");
   });
 });
 
