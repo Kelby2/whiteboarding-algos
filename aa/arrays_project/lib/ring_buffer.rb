@@ -16,12 +16,22 @@ class RingBuffer
     check_index
     # should not be able to see past the length of the array
     raise "index out of bounds" if index >= @length
-    @store[index + @start_idx]
+    if index >= @start_idx
+      @store[index - @start_idx]
+    else
+      @store[@capacity + index - @start_idx]
+    end
+    # @store[index + @start_idx]
   end
 
   # O(1)
   def []=(index, val)
-    @store[index + @start_idx] = val
+    if index >= @start_idx
+      @store[index - @start_idx] = val
+    else
+      @store[@capacity + index - @start_idx] = val
+    end
+    # @store[index + @start_idx] = val
   end
 
   # O(1)
@@ -46,7 +56,7 @@ class RingBuffer
     check_index
     shifted = self[0]
     @length -= 1
-    @start_idx += 1
+    @start_idx -= 1
     shifted
   end
 
@@ -55,7 +65,7 @@ class RingBuffer
     resize! if @length == @capacity
 
     # the starting index moves back one space
-    @start_idx -= 1
+    @start_idx += 1
     self[@capacity] = val
     @length += 1
   end
@@ -73,7 +83,7 @@ class RingBuffer
     new_store = StaticArray.new(@capacity)
 
     @length.times do |n|
-      new_store[n] = self[n]
+      new_store[n] = @store[(n + @start_idx) % @length]
     end
 
     @start_idx = 0
