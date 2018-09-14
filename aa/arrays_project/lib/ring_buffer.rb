@@ -14,24 +14,31 @@ class RingBuffer
   # O(1)
   def [](index)
     check_index
-    # should not be able to see past the length of the array
+    # should raise an error if trying to access past the length of the array
     raise "index out of bounds" if index >= @length
-    if index >= @start_idx
-      @store[index - @start_idx]
+
+    # if index < start_idx, we're looking at the back section of the ring buffer (@store), so the index we're looking for will be at the 'end' of the array
+    if index < @start_idx
+      # @capacity - @start_idx is equal to the true start position
+      @store[@capacity - @start_idx + index]
     else
-      @store[@capacity + index - @start_idx]
+      # we take the difference of the @start_idx from index to get the proper position (looking at front of the @store)
+      @store[index - @start_idx]
     end
-    # @store[index + @start_idx]
   end
 
   # O(1)
   def []=(index, val)
-    if index >= @start_idx
-      @store[index - @start_idx] = val
+
+    # if index < start_idx, we're looking at the back section of the ring buffer (@store), so the index we're looking for will be at the 'end' of the array
+    if index < @start_idx
+      # @capacity - @start_idx is equal to the true start position
+      @store[@capacity - @start_idx + index] = val
     else
-      @store[@capacity + index - @start_idx] = val
+      # we take the difference of the @start_idx from index to get the proper position (looking at front of the @store)
+      @store[index - @start_idx] = val
     end
-    # @store[index + @start_idx] = val
+
   end
 
   # O(1)
@@ -64,7 +71,7 @@ class RingBuffer
   def unshift(val)
     resize! if @length == @capacity
 
-    # the starting index moves back one space
+    # the starting index is the buffer (shows how many spaces we're taking from the 'back' of the array)
     @start_idx += 1
     self[@capacity] = val
     @length += 1
@@ -83,6 +90,7 @@ class RingBuffer
     new_store = StaticArray.new(@capacity)
 
     @length.times do |n|
+      # when resizing to the new array, the new array should start with all the elements in the proper index
       new_store[n] = @store[(n + @start_idx) % @length]
     end
 
