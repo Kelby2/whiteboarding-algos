@@ -12,19 +12,32 @@ class QueueWithMax
   attr_accessor :store
 
   def initialize
-    @store = []
+    @store = RingBuffer.new
+    @max_storage = RingBuffer.new
   end
 
   def enqueue(val)
     @store.push(val)
+    # changes enqueue to an O(n) operation as we would have to iterate through the max_storage and pop along the way to remove smaller nums
+    while @max_storage.length != 0 && @max_storage[@max_storage.length - 1] < val
+      @max_storage.pop
+    end
+
+    @max_storage.push(val)
   end
 
   def dequeue
-    @store.shift
+    shifted = @store.shift
+
+    if shifted == @max_storage[0]
+      @max_storage.shift
+    end
+
+    shifted
   end
 
   def max
-    @store.max
+    @max_storage[0]
   end
 
   def length
