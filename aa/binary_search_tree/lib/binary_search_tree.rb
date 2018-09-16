@@ -52,19 +52,59 @@ class BinarySearchTree
     end
   end
 
-  def delete(value)
+  def delete(target, start = @root)
+    return nil if find(target, start).nil?
+    replacement = nil
+    node_to_delete = find(target, start)
+
+    case has_children?(node_to_delete)
+    when -1 # no children
+      if !node_to_delete.parent
+        return @root = nil
+      end
+
+      if left_child?(node_to_delete)
+        node_to_delete.parent.left = nil
+      else
+        node_to_delete.parent.right = nil
+      end
+    when 0 # only 1 child
+      return only_child(node_to_delete) if !node_to_delete.parent
+      if left_child?(node_to_delete)
+        node_to_delete.parent.left = only_child(node_to_delete)
+      else
+        node_to_delete.parent.right = only_child(node_to_delete)
+      end
+    when 1 # node that we're deleting has 2 children
+      next_greatest = maximum(node_to_delete.left)
+      if !node_to_delete.parent
+      elsif left_child?(node_to_delete)
+        node_to_delete.parent.left = next_greatest
+      else
+        node_to_delete.parent.right = next_greatest
+      end
+
+      delete(next_greatest.value, next_greatest)
+      next_greatest.left = node_to_delete.left
+      next_greatest.right = node_to_delete.right
+    end
 
   end
 
   # helper method for #delete:
   def maximum(current_node = @root)
+    if current_node.right.nil?
+      return current_node
+    end
 
+    maximum(current_node.right)
   end
 
   def depth(current_node = @root)
     # calculating depth using an iterative approach with a queue
     # we check the current level of nodes for children, and if there are additional children nodes added, we increase our depth by 1
     # after we check the node, we shift it off the queue
+
     nodes_queue = [current_node]
     depth = 0
 
@@ -85,9 +125,7 @@ class BinarySearchTree
   def depth(current_node = @root)
     # calculating depth using a recursive approach
     # if current node has no children return
-    if current_node.left.nil? && current_node.right.nil?
-      return 0
-    end
+    return 0 if current_node.nil? || has_children?(current_node) == -1
 
     left_branch_depth = 0
     right_branch_depth = 0
@@ -106,13 +144,57 @@ class BinarySearchTree
   end
 
   def is_balanced?(current_node = @root)
+
+    left_depth = depth(current_node.left)
+    right_depth = depth(current_node.right)
+
+    if (left_depth - right_depth).abs < 1
+      case has_children?(current_node)
+      when -1
+        return true
+      when 0
+        return is_balanced?(only_child(current_node))
+      when 1
+        return is_balanced?(current_node.left) && is_balanced?(current_node.right)
+      end
+    else
+      return false
+    end
   end
 
   def in_order_traversal(current_node = @root, arr = [])
+      return [] if current_node.nil?
+      return in_order_traversal(current_node.left) + [current_node.value] + in_order_traversal(current_node.right)
   end
 
 
   private
   # optional helper methods go here:
+
+  def left_child?(node)
+    # return 1 if this node was the left child of it's parent
+    # return 2 if this node was the right child of it's parent
+    return false if !node.parent
+    node.value <= node.parent.value
+  end
+
+  def has_children?(node)
+    # return -1 if this node has no children
+    # return 0 if this node has only has 1 child
+    # return 1 if this node has both children
+    if node.left.nil? && node.right.nil?
+      return -1
+    elsif node.left && node.right
+      return 1
+    else
+      return 0
+    end
+  end
+
+  def only_child(node)
+    # only used if node has only 1 child
+    # returns the only child of the node
+    node.left || node.right
+  end
 
 end
