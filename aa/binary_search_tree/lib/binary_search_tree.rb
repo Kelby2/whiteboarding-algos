@@ -55,38 +55,39 @@ class BinarySearchTree
   def delete(target, start = @root)
     return nil if find(target, start).nil?
     replacement = nil
-    node_to_delete = find(target, start)
+    node = find(target, start)
 
-    case has_children?(node_to_delete)
+    case has_children?(node)
     when -1 # no children
-      if !node_to_delete.parent
+      if !node.parent
         return @root = nil
       end
 
-      if left_child?(node_to_delete)
-        node_to_delete.parent.left = nil
+      if is_left_child?(node)
+        node.parent.left = nil
       else
-        node_to_delete.parent.right = nil
+        node.parent.right = nil
       end
+
     when 0 # only 1 child
-      return only_child(node_to_delete) if !node_to_delete.parent
-      if left_child?(node_to_delete)
-        node_to_delete.parent.left = only_child(node_to_delete)
+      return only_child(node) if !node.parent
+      if is_left_child?(node)
+        node.parent.left = only_child(node)
       else
-        node_to_delete.parent.right = only_child(node_to_delete)
+        node.parent.right = only_child(node)
       end
     when 1 # node that we're deleting has 2 children
-      next_greatest = maximum(node_to_delete.left)
-      if !node_to_delete.parent
-      elsif left_child?(node_to_delete)
-        node_to_delete.parent.left = next_greatest
+      next_greatest = maximum(node.left)
+      if !node.parent
+      elsif is_left_child?(node)
+        node.parent.left = next_greatest
       else
-        node_to_delete.parent.right = next_greatest
+        node.parent.right = next_greatest
       end
 
       delete(next_greatest.value, next_greatest)
-      next_greatest.left = node_to_delete.left
-      next_greatest.right = node_to_delete.right
+      next_greatest.left = node.left
+      next_greatest.right = node.right
     end
 
   end
@@ -171,7 +172,7 @@ class BinarySearchTree
   private
   # optional helper methods go here:
 
-  def left_child?(node)
+  def is_left_child?(node)
     # return 1 if this node was the left child of it's parent
     # return 2 if this node was the right child of it's parent
     return false if !node.parent
