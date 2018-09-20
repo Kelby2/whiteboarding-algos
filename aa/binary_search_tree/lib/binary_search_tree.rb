@@ -163,6 +163,27 @@ class BinarySearchTree
     end
   end
 
+  def check_height(node)
+    return 0 if node.nil?
+
+    left_height = check_height(node.left)
+    return false if !left_height
+
+    right_height = check_height(node.right)
+    return false if !right_height
+
+    difference = left_height - right_height
+    if difference.abs > 1
+      return false
+    else
+      return [left_height, right_height].max + 1
+    end
+  end
+
+  def is_balanced?(node = @root)
+    !!check_height(node)
+  end
+
   def in_order_traversal(current_node = @root, arr = [])
       return [] if current_node.nil?
       return in_order_traversal(current_node.left) + [current_node.value] + in_order_traversal(current_node.right)
