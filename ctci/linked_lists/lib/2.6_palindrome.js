@@ -5,4 +5,4 @@ function palindrome(node) {
 
 }
 
-module.exports = palindromeConstantSpace;
+module.exports = palindrome;

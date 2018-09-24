@@ -1,12 +1,12 @@
-const Node = require('../node');
-const removeDups = require('../2.1_removeDups');
-const returnKthToLast = require('../2.2_returnKthToLast');
-const deleteMiddleNode = require('../2.3_deleteMiddleNode');
-const partition = require('../2.4_partition');
-const sumLists = require('../2.5_sumLists');
-const palindrome = require('../2.6_palindrome');
-const intersection = require('../2.7_intersection');
-const loopDetection = require('../2.8_loopDetection');
+const Node = require('../lib/node');
+const removeDups = require('../lib/2.1_removeDups');
+const returnKthToLast = require('../lib/2.2_returnKthToLast');
+const deleteMiddleNode = require('../lib/2.3_deleteMiddleNode');
+const partition = require('../lib/2.4_partition');
+const sumLists = require('../lib/2.5_sumLists');
+const palindrome = require('../lib/2.6_palindrome');
+const intersection = require('../lib/2.7_intersection');
+const loopDetection = require('../lib/2.8_loopDetection');
 
 const nodes = [6,5,3,3,5,1,2,3,9,8].map(num => new Node(num));
 for (let i = 0; i < nodes.length - 1; i++) {
