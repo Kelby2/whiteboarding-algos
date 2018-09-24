@@ -1,6 +1,6 @@
-const MinStack = require('../minStack');
-const MinQueue = require('../minQueue');
-const StackQueue = require('../stackQueue');
+const MinStack = require('../lib/minStack');
+const MinQueue = require('../lib/minQueue');
+const StackQueue = require('../lib/stackQueue');
 
 describe("minStack", () => {
   let testStack = new MinStack();
@@ -8,6 +8,8 @@ describe("minStack", () => {
   testStack.push(4);
   testStack.push(3);
   testStack.push(2);
+
+  // bottom of stack => [5, 4, 3, 2] => top of stack
 
   test("peek should return the value of the integer at the top of the stack", () => {
     expect(testStack.peek()).toBe(2);
@@ -45,6 +47,8 @@ describe("minQueue", () => {
   testQueue.enqueue(4);
   testQueue.enqueue(2);
 
+  // back of queue => [3, 1, 4, 2] => front of queue
+
   test("enqueue should add the given number to the end of the queue", () => {
     expect(testQueue.length()).toBe(4);
     testQueue.enqueue(3);
@@ -79,6 +83,8 @@ describe("stackQueue", () => {
   testStackQueue.enqueue(3);
   testStackQueue.enqueue(1);
   testStackQueue.enqueue(4);
+
+  // back of queue => [3, 1, 4] => front of queue
 
   test("enqueue should add the given number to the end of the queue", () => {
     expect(testStackQueue.length()).toBe(3);
