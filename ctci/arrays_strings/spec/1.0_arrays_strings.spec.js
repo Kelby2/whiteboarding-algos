@@ -1,10 +1,10 @@
-const isUnique = require('../1.1_isUnique');
-const isUnique2 = require('../1.1_isUnique');
-const checkPermutation = require('../1.2_checkPermutation');
-const URLify = require('../1.3_URLify');
-const palinPerm = require('../1.4_palindromePermutation');
-const oneAway = require('../1.5_oneAway');
-const stringCompression = require('../1.6_stringCompression');
+const isUnique = require('../lib/1.1_isUnique');
+const isUnique2 = require('../lib/1.1_isUnique');
+const checkPermutation = require('../lib/1.2_checkPermutation');
+const URLify = require('../lib/1.3_URLify');
+const palinPerm = require('../lib/1.4_palindromePermutation');
+const oneAway = require('../lib/1.5_oneAway');
+const stringCompression = require('../lib/1.6_stringCompression');
 
 describe("isUnique", () => {
   let str1 = "nopeats";
